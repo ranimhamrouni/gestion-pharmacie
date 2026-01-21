@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 
-public class venteDAOImpl implements VenteDAO {
+public class VenteDAOImpl implements VenteDAO {
     @Override
     public void save(Vente vente) throws DAOException {
 
