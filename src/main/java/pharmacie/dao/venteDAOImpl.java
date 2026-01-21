@@ -4,6 +4,8 @@ import pharmacie.model.Vente;
 import pharmacie.exception.DAOException;
 import pharmacie.util.DatabaseConnection;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -35,7 +37,7 @@ public class venteDAOImpl implements VenteDAO {
 
             // 1️⃣ Insert into ventes
             venteStmt.setInt(1, vente.getClientId());
-            venteStmt.setString(2, vente.getDateVente());
+            venteStmt.setTimestamp(2, Timestamp.valueOf(vente.getDateVente()));
             venteStmt.executeUpdate();
 
             // 2️⃣ Retrieve generated vente_id
@@ -80,7 +82,7 @@ public class venteDAOImpl implements VenteDAO {
             }
             
             int clientId = venteRs.getInt("client_id");
-            String dateVente = venteRs.getString("date_vente");
+            LocalDateTime dateVente = venteRs.getTimestamp("date_vente").toLocalDateTime();
             
             // Step 2: Get produits sold in this vente
             produitsStmt.setInt(1, id);
@@ -115,7 +117,7 @@ public class venteDAOImpl implements VenteDAO {
             while (ventesRs.next()) {
                 int venteId = ventesRs.getInt("id");
                 int clientId = ventesRs.getInt("client_id");
-                String dateVente = ventesRs.getString("date_vente");
+                LocalDateTime dateVente = ventesRs.getTimestamp("date_vente").toLocalDateTime();
                 
                 // Get produits for this vente
                 produitsStmt.setInt(1, venteId);
@@ -159,7 +161,7 @@ public class venteDAOImpl implements VenteDAO {
 
                 // 1️⃣ Update ventes table
                 venteStmt.setInt(1, vente.getClientId());
-                venteStmt.setString(2, vente.getDateVente());
+                venteStmt.setTimestamp(2, Timestamp.valueOf(vente.getDateVente()));
                 venteStmt.setInt(3, vente.getId());
                 venteStmt.executeUpdate();
 

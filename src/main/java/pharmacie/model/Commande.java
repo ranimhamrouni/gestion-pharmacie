@@ -1,21 +1,21 @@
 package pharmacie.model;
 
 import java.util.Map;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Commande {
     private int id;
     private int fournisseurId;
-    private LocalDate date;
+    private LocalDateTime date;
     private String statut;
     private Map<Integer, Integer> produitsCommandes; // Map<produitId, quantite>
-    public Commande(int fournisseurId, LocalDate date, String statut, Map<Integer, Integer> produitsCommandes) {
+    public Commande(int fournisseurId, LocalDateTime date, String statut, Map<Integer, Integer> produitsCommandes) {
         this.fournisseurId = fournisseurId;
         this.date = date;
         this.statut = statut;
         this.produitsCommandes = produitsCommandes;
     }
-    public Commande(int id, int fournisseurId, LocalDate date, String statut, Map<Integer, Integer> produitsCommandes) {
+    public Commande(int id, int fournisseurId, LocalDateTime date, String statut, Map<Integer, Integer> produitsCommandes) {
         this.id = id;
         this.fournisseurId = fournisseurId;
         this.date = date;
@@ -28,7 +28,7 @@ public class Commande {
     public int getFournisseurId() {
         return fournisseurId;
     }
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
     public String getStatut() {
@@ -43,7 +43,7 @@ public class Commande {
     public void setFournisseurId(int fournisseurId) {
         this.fournisseurId = fournisseurId;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
     public void setStatut(String statut) {

@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +31,7 @@ public class CommandeDAOImpl implements CommandeDAO {
 
                 // Insert into commandes
                 commandeStmt.setInt(1, commande.getFournisseurId());
-                commandeStmt.setString(2, commande.getDate());
+                commandeStmt.setTimestamp(2, Timestamp.valueOf(commande.getDate()));
                 commandeStmt.setString(3, commande.getStatut());
                 commandeStmt.executeUpdate();
 
@@ -76,7 +79,7 @@ public class CommandeDAOImpl implements CommandeDAO {
             try (ResultSet rs = commandeStmt.executeQuery()) {
                 if (rs.next()) {
                     int fournisseurId = rs.getInt("fournisseur_id");
-                    String date = rs.getString("date_commande");
+                    LocalDateTime date = rs.getTimestamp("date_commande").toLocalDateTime();
                     String statut = rs.getString("statut");
 
                     // Get produits and quantities
@@ -111,7 +114,7 @@ public class CommandeDAOImpl implements CommandeDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int fournisseurId = rs.getInt("fournisseur_id");
-                String date = rs.getString("date_commande");
+                LocalDateTime date = rs.getTimestamp("date_commande").toLocalDateTime();
                 String statut = rs.getString("statut");
 
                 // For each commande, get products and quantities
@@ -148,7 +151,7 @@ public class CommandeDAOImpl implements CommandeDAO {
 
                 // Update commandes table
                 updateStmt.setInt(1, commande.getFournisseurId());
-                updateStmt.setString(2, commande.getDate());
+                updateStmt.setTimestamp(2, Timestamp.valueOf(commande.getDate()));
                 updateStmt.setString(3, commande.getStatut());
                 updateStmt.setInt(4, commande.getId());
                 updateStmt.executeUpdate();
